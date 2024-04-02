@@ -21,3 +21,18 @@ def login():
     data = request.get_json()
 
     return user_login(data)
+
+
+@users_end.route('/logout',methods=["POST"])
+def logout():
+    # Clear session variables
+    session.pop('logged_in', None)
+    session.pop('user_id', None)
+
+    return {"message": "user logged out"}
+
+
+@users_end.route('/session_parameters',methods=["GET"])
+def session_params():
+
+    return {"message": session}

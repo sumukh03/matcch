@@ -1,3 +1,4 @@
+from .extension import session
 from src.extension import db
 from .db_utils import *
 
@@ -37,8 +38,10 @@ def user_login(data):
     if not result:
         return {"message":"Mobile DOES NOT exists! Please Sign-up"}
     
-    if result["password"]==data["password"]:
-        return {"message":"User Found"}
+    if result[0]["password"]==data["password"]:
+        session['logged_in'] = True
+        session['user_id'] = result[0]["user_id"]
+        return {"message":"User Found user_id={} ".format(result[0]['user_id'])}
     else:
         return {"message":"Passowod incorrect"}
 
@@ -46,3 +49,22 @@ def get_user_data(columns,values):
     condition={"column":columns,"value":values}
     return Select_table("users",condition)
     
+
+
+def test_score_to_db(data):
+
+    if session.get("logged_in",None):
+        required_fields=get_fields_table("user_score")
+        required_fields["user_id"]=session["user_id"]
+        data.update(required_fields)
+        id=Insert_table("user_score",[data])
+
+        if id:
+            return "Score posted"
+        else:
+            return "failed"
+            
+
+    return "Please Login or signup"
+    
+
