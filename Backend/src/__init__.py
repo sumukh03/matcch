@@ -5,7 +5,9 @@ from .extension import db
 
 def create_app():
     from src.views.user_views import users_end
-    from src.models.user_models import users,user_score
+    from src.views.processing_views import process_end
+    from src.models.user_models import users
+    from src.models.processing_models import user_score
 
 
     app = Flask(__name__)
@@ -24,6 +26,8 @@ def create_app():
     migrate.init_app(app)
 
     app.register_blueprint(users_end)
+    app.register_blueprint(process_end)
+
 
     @app.route("/")
     def get_urls():

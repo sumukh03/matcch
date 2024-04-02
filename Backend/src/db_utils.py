@@ -1,5 +1,5 @@
 from src.models.user_models import *
-# from models.processing_models import *
+from src.models.processing_models import *
 from src.extension import db
 from sqlalchemy import create_engine,insert,select,and_
 from sqlalchemy.orm import sessionmaker
