@@ -5,7 +5,7 @@ from .extension import db
 
 def create_app():
     from src.views.user_views import users_end
-    from src.models.user_models import Users,User_score
+    from src.models.user_models import users,user_score
 
 
     app = Flask(__name__)
