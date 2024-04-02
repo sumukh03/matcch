@@ -1,4 +1,5 @@
 from flask import request,Blueprint
+from src.extension import db
 from src.helpers import *
 
 
@@ -11,16 +12,12 @@ def user_end():
 @users_end.route('/sign_up',methods=["POST"])
 def sign_up():
     #signup new users 
-    data = request.get_json()
-    #get_users_details 
-    # get_user_mobile(data["mobile"])
-    print(data)
-    #check if mobile exists 
-    flag=create_user(data)
-    return "Hello from my users_end{}".format(flag)
+    data = request.get_json()#get_users_details 
+    return create_user(data)
 
 @users_end.route('/login',methods=["POST"])
 def login():
-    #signup new users 
-    # flag=user_login()
-    return "Hello from my users_end"
+    #login existing users with the mobile number
+    data = request.get_json()
+
+    return user_login(data)
