@@ -2,7 +2,6 @@ from flask import Flask
 from flask_migrate import Migrate
 from .extension import db
 
-
 def create_app():
     from src.views.user_views import users_end
     from src.views.processing_views import process_end
@@ -24,7 +23,7 @@ def create_app():
 
     migrate=Migrate(app, db)
     migrate.init_app(app)
-
+    
     app.register_blueprint(users_end)
     app.register_blueprint(process_end)
 

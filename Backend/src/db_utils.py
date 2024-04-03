@@ -11,7 +11,8 @@ engine = create_engine('sqlite:///instance/database.db', echo=True)
 
 tables={
     "users":users,
-    "user_score":user_score
+    "user_score":user_score,
+    "compatibility":compatibility
 }
 
 def get_fields_table(tbl):
@@ -24,6 +25,8 @@ def Insert_table(tbl,data):
         insert(tables[tbl]),data,
     )
     # res=engine.execute(insert(tables[tbl]).values(**data)).commit()
+    #return the newly inserted primary key
+
     return result
 
 
