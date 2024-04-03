@@ -31,6 +31,17 @@ def logout():
 
     return {"message": "user logged out"}
 
+@users_end.route('/get_user_data',methods=["GET"])
+def get_user_data():
+    data = request.get_json()
+    user_data=get_user_data_id(**data)
+    return user_data
+
+@users_end.route('/recommendations',methods=["POST"])
+def recommendations():
+    user_recommendations=get_user_recommendations()
+    return user_recommendations
+
 
 @users_end.route('/session_parameters',methods=["GET"])
 def session_params():

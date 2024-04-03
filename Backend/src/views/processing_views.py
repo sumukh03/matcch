@@ -2,7 +2,6 @@ from flask import request,Blueprint
 from src.extension import db
 from src.helpers import *
 
-
 process_end = Blueprint('Process', __name__,url_prefix="/process_end")
 
 @process_end.route('/')
