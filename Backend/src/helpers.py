@@ -1,9 +1,6 @@
 from .extension import session
 from src.extension import db
 from .db_utils import *
-""" 1.read csvs
-    2.conver the scored to keys ("A")
-    3.calculate compatability score  """
 
 def create_user(data):
     """Checks if all the required fields are present to create the user
