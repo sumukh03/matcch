@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sign In Page -->
+    <div id="signin-page" class="page">
+        <h1>Sign In</h1>
+        <!-- Sign in form -->
+        <form id="signin-form">
+            <input type="text" id="mobile" placeholder="Mobile">
+            <input type="password" id="password" placeholder="Password">
+            <button type="submit">Sign In</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="signup-link">Sign Up</a></p>
+    </div>
+
+    <!-- Sign Up Page -->
+    <div id="signup-page" class="page">
+        <h1>Sign Up</h1>
+        <!-- Sign up form -->
+        <form id="signup-form">
+            <input type="text" id="new-username" placeholder="Name">
+            <input type="text" id="new-email" placeholder="Email">
+            <input type="password" id="new-password" placeholder="Password">
+            <input type="mobile" id="new-mobile" placeholder="Mobile">
+            <input type="city" id="new-city" placeholder="City">
+            <input type="gender" id="new-gender" placeholder="Gender">
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="#" id="signin-link">Sign In</a></p>
+    </div>
+
+    <!-- Questionnaire Page -->
+    <div id="questionnaire-page" class="page">
+        <!-- Questions will be dynamically added here -->
+        <div class="questions">
+            <h2 id="question">Question goes here</h2>
+            <div id="answer-buttons">
+                <button class="btn" id="strongly-agree" value="5">Strongly Agree</button>
+                <button class="btn" id="agree" value="4">Agree</button>
+                <button class="btn" id="neutral" value="3">Neural</button>
+                <button class="btn" id="disagree" value="2">Disagree</button>
+                <button class="btn" id="strongly-disagree" value="1">Strongly Disagree</button>
+            </div> 
+            <button class ="btn" id="next-button">Next</button>           
+        </div>
+    </div>
+
+    <div id="connection-page" class="page">
+        <button class="btn" id="rec-btn" value="1">see recommendations</button>
+        <button class="btn" id="take-test-btn" value="2">take test</button>
+    </div>
+    <!-- Recommendations Page -->
+    <div id="recommendations-page" class="page">
+        <!-- Recommendations will be dynamically added here -->
+    </div>
+
+    <button id="signout-btn" class="sign-out">Sign Out</button>
+    <script src="script.js"></script>
+</body>
+</html>
