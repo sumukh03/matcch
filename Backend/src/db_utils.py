@@ -1,7 +1,7 @@
 from src.models.user_models import *
 from src.models.processing_models import *
 from src.extension import db
-from sqlalchemy import create_engine,insert,select,and_
+from sqlalchemy import create_engine,insert,select,and_,delete,or_
 from sqlalchemy.orm import sessionmaker
 
 # Create an engine for a SQLite database
@@ -47,5 +47,20 @@ def Select_table(tbl,condition):
 
 
     return output
+
+
+def Delete_table(tbl,condition):
+#delete(user_table).where(user_table.c.name == "patrick")
+#condition = {"column":["col_name"],"value":["value"]}
+    filter_conditions = [
+        getattr(tables[tbl],k)==v for k,v in zip(condition["column"],condition["value"])
+    ]
+    
+    stmt=delete(tables[tbl]).where(or_(*filter_conditions))
+    result =engine.execute(stmt)
+    if result :
+        return True
+    return False
+
 
     

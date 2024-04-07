@@ -2,13 +2,17 @@ from .extension import session
 from src.extension import db
 from .db_utils import *
 
+
+def make_response(data,status,message):
+    return {"data":data,"status":status,"message":message}
+
 def create_user(data):
     """Checks if all the required fields are present to create the user
     if required fields are missing return that 
     else create the user and return the user_id"""
 
     if get_user_data(columns=["mobile"],values=[data["mobile"]]):
-        return {"message":"Mobile already exists! Please login"}
+        return make_response(None,False,"Mobile already exists! Please login")
     #check if mobile exists 
     else:
         #checking the fields 
@@ -22,13 +26,13 @@ def create_user(data):
             if k not in keys:
                 missing.append(k)
         if missing:
-            return {"message":f"Missing fields -- {missing}"}
+            return make_response(None,False,f"Missing fields -- {missing}")
         
         id= Insert_table("users",[required_fields])
         if id:
-            return {"message":"User Created"}
+            return make_response(None,True,"User Created")
         else:
-            return {"message":"User Cannot be Created"}
+            return make_response(None,False,"User could not be Created")
 
 def user_login(data):
 
@@ -40,9 +44,10 @@ def user_login(data):
     if result[0]["password"]==data["password"]:
         session['logged_in'] = True
         session['user_id'] = result[0]["user_id"]
-        return {"message":"User Found ","user_id":result[0]['user_id']}
+        return make_response({"user_id":result[0]['user_id']},True,"User found")
+    
     else:
-        return {"message":"Passowod incorrect"}
+        return make_response(None,False,"Passowod incorrect")
 
 def get_user_data(columns,values):
     condition={"column":columns,"value":values}
@@ -150,14 +155,32 @@ def test_score_to_db(data):
         cal=calculate_compatability(session["user_id"])
 
         if id and cal :
-            return "Score posted"
+            return make_response(None,True,"Score Posted")
         else:
-            return "failed"
+            return make_response(None,False,"Score not posted")
             
 
-    return "Please Login or signup"
+    return make_response(None,False,"PLEASE LOGIN or SIGN-UP")
     
 
+
+def make_recommendations_data(data):
+    compatible_users=[]
+    for index,x in data.iterrows():
+        d={"user_id":None,"score":None,"name":None,"gender":None}
+
+        if x["user_id1"] != session["user_id"]:
+            d["user_id"]=x["user_id1"]  
+        else:
+            d["user_id"]=(x['user_id2'])
+
+        d["score"]=x["total"]
+        user_data=get_user_data_id(d["user_id"])
+        print(user_data)
+        d["name"]=user_data["name"]
+        d["gender"]=user_data["gender"]
+        compatible_users.append(d)
+    return compatible_users
 
 def get_user_recommendations():
     user_id=session.get("user_id",None)
@@ -168,14 +191,40 @@ def get_user_recommendations():
         condition={"column":["user_id2"],"value":[user_id]}
         other_rows=Select_table("compatibility",condition)
         if other_rows:
-            rows.append(other_rows)
+            rows.extend(other_rows)
 
         df=pd.DataFrame(rows)
         df=df.sort_values(by='total',ascending=False)
-        df = df.to_json(orient='records')
-        return df
-    return "Please Login or signup"
+        df=make_recommendations_data(df)
+        return make_response(df,True,f"recommendations for the user_id {user_id}")
+    return make_response(None,False,"PLEASE LOGIN or SIGN-UP")
 
 
 
-#for retest , just delete the rows from compatibility table and , again do test_scores_to_db
+def calc_from_rawData(answers):
+    answers=list(map(int,answers[:50]))
+    print(answers)
+    d={
+    "Extrav" :sum(answers[:10]),
+    "Neuro" :sum(answers[10:20]),
+    "Agree" :sum(answers[20:30]),
+    "Consc" :sum(answers[30:40]),
+    "Open" :sum(answers[40:50]),
+    }
+    return d
+
+def prepare_data(data):
+
+    scores=calc_from_rawData(data["answers"])
+
+    if data.get("retest",None):
+        condition = {"column":["user_id1","user_id2"],"value":[session["user_id"],session["user_id"]]}
+        response1=Delete_table("compatibility",condition)
+        condition = {"column":["user_id"],"value":[session["user_id"]]}
+        response2=Delete_table("user_score",condition)
+        if response1 and response2:
+            return scores
+        return None
+    return scores
+
+            
