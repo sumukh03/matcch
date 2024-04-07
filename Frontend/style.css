@@ -1,0 +1,144 @@
+/* Basic styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    display: none;
+    padding: 20px;
+}
+
+.show {
+    display: block;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px;
+    cursor: pointer;
+}
+input{
+    margin: 5px;
+}
+
+
+*{
+    margin:0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(237, 227, 237);
+}
+
+.app{
+    background-color: white;
+    max-width:600px;
+    margin :100px auto 0;
+    border-radius: 10px;
+    padding :60px
+}
+
+.app h1{
+    font-size: 25px;
+    border-bottom: 1px solid ;
+    padding-bottom: 30;
+}
+
+.questions{
+    padding: 20px 0;
+    text-align: center;
+}
+
+.questions h2{
+    font-size:18px;
+    border: 20px;
+}
+
+.btn{
+    padding:10px;
+    margin: 10px 0;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 3px solid;
+    transition: all 0.3s;
+    background-color: antiquewhite;
+}
+
+/* #strongly-agree{
+    background-color: rgb(144, 255, 144);
+}
+
+#agree{
+    background-color: rgb(120, 164, 120);
+}
+
+#neutral{
+    background-color: rgb(251, 251, 135);
+}
+
+#disagree{
+    background-color: rgb(255, 199, 96);
+}
+
+#strongly-disagree{
+    background-color: rgb(255, 112, 112);
+} */
+
+
+#strongly-agree:hover{
+    background-color: rgb(0, 255, 0);
+
+}
+
+#agree:hover{
+    background-color: rgb(0, 188, 0);
+
+}
+
+#neutral:hover{
+    background-color: rgb(246, 246, 48);
+
+}
+
+#disagree:hover{
+    background-color: rgb(246, 170, 29);
+
+}
+
+#strongly-disagree:hover{
+    background-color: rgb(248, 78, 78);
+
+}
+
+#next-button{
+    background-color: rgb(241, 223, 241);
+    margin: 20px auto ;
+    cursor: pointer;
+    display: none;
+}
+
+
+.user-box button{
+    background-color: rgb(187, 224, 233);
+    border-radius: 10px solid;
+    padding : 30px;
+    border: 5px;
+    border-color:black ;
+    margin: 20px;
+    display: block;
+
+}
+
+
+#signout-btn{
+    display: None;
+}
