@@ -1,2 +1,3 @@
-testing.py
+Backend/testing.py
 Backend/migrations/*
+Backend/instance/*
