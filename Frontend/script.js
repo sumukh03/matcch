@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             else{
                 alert("ERROR OCCURED !"+responseData.message)
-                window.location.reload();
+                // window.location.reload();
             }
 
         } catch (error) {
@@ -131,15 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const url="http://127.0.0.1:5000/users_end/sign_up"
         let result= await makeAPIcall(url,new_user_data)
         if (result){
-            // showPage(connectionPage)
-            // // showPage(questionnairePage)
-            // recommendationButton.style.display="none"
-            // // recommendationButton.onclick=showRecommendations
-            // takeTestButton.onclick=()=>{
-            //     showPage(questionnairePage) 
-            //     RETEST=false
-            //     startTest()
-            // }
 
             alert("User Created, Please SIGNIN")
             document.getElementById('signup-form').reset();
@@ -247,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function startTest(){
         currentQuestionIndex=0;
         showQuestion()
+        console.log("START TEST")
     }
 
 
@@ -305,54 +297,22 @@ document.addEventListener('DOMContentLoaded', function () {
     async function sendScore(){
         try {
 
-            // const jsonData = JSON.stringify({"answers":ANSWERS,"retest":RETEST})
-            // const url = "http://127.0.0.1:5000/process_end/test_score"
-            // const options = {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: jsonData,
-            //     credentials: 'include'
-            // }
-
-            // const response = await fetch(url, options);
-
-            // if (!response.ok) {
-            //     throw new Error('Network response was not ok');
-            // }
-            // const responseData = await response.json(); // Parse the JSON response
-            // console.log('Response from server:', responseData);
-            // // showPage(recommendationsPage)
             const scoreData={"answers":ANSWERS,"retest":RETEST}
             const url = "http://127.0.0.1:5000/process_end/test_score"
             responseData=await makeAPIcall(url,scoreData)
+            alert("SIGNIN TO SEE COMPATABILITY")
+            window.location.reload();
 
-            if (responseData){
-                // showRecommendations(responseData)
-                showPage(connectionPage)
-            // showPage(questionnairePage)
-                recommendationButton.style.display="block"
-                recommendationButton.onclick=showRecommendations
-                takeTestButton.onclick=()=>{
-                    showPage(questionnairePage) 
-                    startTest()
-                }
-                
-            }
-            // Handle the response data as needed
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
 
     }
     signOutButton.addEventListener('click', function () {
-        // Reload the page
         window.location.reload();
-        // Optionally, you can show an alert message
-        // alert('You have been signed out');
     });
 
-// startTest()
+
+
 });
 

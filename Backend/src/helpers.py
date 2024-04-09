@@ -74,7 +74,7 @@ def calculate_compatability(user_id):
     def get_user_score_vector(user_id):
         condition = {"column": ["user_id"], "value": [user_id]}
 
-        user_scores = Select_table("user_score", condition)[0]
+        user_scores = Select_table("user_score", condition)[0] #OCEAN
 
         user_scores = dict_to_order_vec(user_scores)
 
