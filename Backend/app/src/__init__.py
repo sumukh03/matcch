@@ -13,9 +13,7 @@ def create_app():
     app = Flask(__name__)
     CORS(app, supports_credentials=True)
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
-    # app.config[
-    #     "SQLALCHEMY_DATABASE_URI"
-    # ] = "mysql+pymysql://{user}:{password}@{host}/{db_name}".format(user="root",password="palaramukh",host="localhost",db_name="matcch")
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:palaramukh@localhost/matcch"
 
     db.init_app(app)
 

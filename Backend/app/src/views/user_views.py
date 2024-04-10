@@ -11,19 +11,11 @@ def user_end():
     return "Hello from my users_end"
 
 
-@users_end.route("/sign_up", methods=["POST"])
+@users_end.route("/details", methods=["POST"])
 def sign_up():
     # signup new users
     data = request.get_json()  # get_users_details
     return jsonify(create_user(data))
-
-
-@users_end.route("/login", methods=["POST"])
-def login():
-    # login existing users with the mobile number
-    data = request.get_json()
-
-    return jsonify(user_login(data))
 
 
 @users_end.route("/logout", methods=["POST"])
@@ -35,13 +27,6 @@ def logout():
     return jsonify(make_response(None, True, "user logged out"))
 
 
-@users_end.route("/get_user_data", methods=["GET"])
-def get_user_data():
-    data = request.get_json()
-    user_data = get_user_data_id(**data)
-    return user_data
-
-
 @users_end.route("/recommendations", methods=["POST"])
 def recommendations():
     user_recommendations = get_user_recommendations()
@@ -50,4 +35,6 @@ def recommendations():
 
 @users_end.route("/session_parameters", methods=["GET"])
 def session_params():
-    return jsonify(make_response(session, True, "SESSION PARAMETERS"))
+    condition = {"column": ["user_id"], "value": [session["user_id"]]}
+    x = Select_table("user_score", condition)[0]
+    return jsonify(make_response(x, True, "SESSION PARAMETERS"))

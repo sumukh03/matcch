@@ -1,0 +1,11 @@
+alembic
+Flask
+Flask_Cors
+Flask_Login
+Flask_Migrate
+flask_sqlalchemy
+pandas
+SQLAlchemy
+joblib
+pymysql
+scikit-learn

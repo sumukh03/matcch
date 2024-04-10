@@ -7,8 +7,11 @@ from sqlalchemy.orm import sessionmaker
 # Create an engine for a SQLite database
 engine = create_engine("sqlite:///instance/database.db", echo=True)
 
+# engine = create_engine(
+#     "mysql+pymysql://root:palaramukh@localhost/matcch")
 
-tables = {"users": users, "user_score": user_score, "compatibility": compatibility}
+
+tables = {"users": users, "user_score": user_score}
 
 
 def get_fields_table(tbl):
@@ -21,8 +24,6 @@ def Insert_table(tbl, data):
         insert(tables[tbl]),
         data,
     )
-    # res=engine.execute(insert(tables[tbl]).values(**data)).commit()
-    # return the newly inserted primary key
 
     return result
 
@@ -63,3 +64,11 @@ def Delete_table(tbl, condition):
     if result:
         return True
     return False
+
+
+def Insert_df(data):
+    print("Insert_df")
+    data.reset_index(inplace=True)
+    data.rename(columns={"index": "user_id"}, inplace=True)
+    data.user_id += 1
+    data.to_sql("user_score", con=engine, if_exists="append", index=False)
