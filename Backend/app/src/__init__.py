@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
 from .extension import db
-
+import os
 
 def create_app():
     from src.views.user_views import users_end
@@ -12,8 +12,11 @@ def create_app():
 
     app = Flask(__name__)
     CORS(app, supports_credentials=True)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
     # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:palaramukh@localhost/matcch"
+    # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@mysql:3307/matcch"
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ("DB_URL")
+    # app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.environ['MYSQL_USER']}:{os.environ['MYSQL_PASSWORD']}@{os.environ['MYSQL_HOST']}/{os.environ['MYSQL_DATABASE']}"
 
     db.init_app(app)
 

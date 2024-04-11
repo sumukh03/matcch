@@ -3,12 +3,16 @@ from src.models.processing_models import *
 from src.extension import db
 from sqlalchemy import create_engine, insert, select, and_, delete, or_
 from sqlalchemy.orm import sessionmaker
-
+import os
 # Create an engine for a SQLite database
-engine = create_engine("sqlite:///instance/database.db", echo=True)
+# engine = create_engine("sqlite:///instance/database.db", echo=True)
 
+engine = create_engine(
+   os.environ("DB_URL"))
 # engine = create_engine(
-#     "mysql+pymysql://root:palaramukh@localhost/matcch")
+#     "mysql+pymysql://root:root@mysql:3307/matcch")
+
+# engine = create_engine(f"mysql+pymysql://{os.environ['MYSQL_USER']}:{os.environ['MYSQL_PASSWORD']}@{os.environ['MYSQL_HOST']}/{os.environ['MYSQL_DATABASE']}")
 
 
 tables = {"users": users, "user_score": user_score}

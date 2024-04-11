@@ -4,6 +4,8 @@ FROM python:3.10
 # Set the working directory inside the container
 WORKDIR /app
 
+COPY app/script.sh app/script.sh
+
 # Copy the requirements file to the container
 COPY app/src/requirements.txt /app/requirements.txt
 
@@ -21,4 +23,11 @@ ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
 # Run the Flask application when the container launches
+# CMD ["sh", "app/script.sh"]
+RUN flask db init
+RUN flask db migrate 
+RUN flask db upgrade
+
 CMD ["flask", "run"]
+
+
