@@ -4,16 +4,17 @@ FROM python:3.10
 # Set the working directory inside the container
 WORKDIR /app
 
-COPY app/script.sh app/script.sh
+COPY ./app/script.sh app/script.sh
 
 # Copy the requirements file to the container
-COPY app/src/requirements.txt /app/requirements.txt
+COPY ./app/src/requirements.txt /app/requirements.txt
 
 # Install any needed dependencies specified in requirements.txt
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Copy the entire src directory to the container
-COPY app /app
+COPY ./app /app
 
 # Expose port 5000 to communicate with the Flask app
 EXPOSE 5000

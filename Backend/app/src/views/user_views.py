@@ -18,23 +18,9 @@ def sign_up():
     return jsonify(create_user(data))
 
 
-@users_end.route("/logout", methods=["POST"])
-def logout():
-    # Clear session variables
-    session.pop("logged_in", None)
-    session.pop("user_id", None)
-
-    return jsonify(make_response(None, True, "user logged out"))
-
-
 @users_end.route("/recommendations", methods=["POST"])
 def recommendations():
-    user_recommendations = get_user_recommendations()
+    data = request.get_json()
+    user_recommendations = get_user_recommendations(data)
     return jsonify(user_recommendations)
 
-
-@users_end.route("/session_parameters", methods=["GET"])
-def session_params():
-    condition = {"column": ["user_id"], "value": [session["user_id"]]}
-    x = Select_table("user_score", condition)[0]
-    return jsonify(make_response(x, True, "SESSION PARAMETERS"))

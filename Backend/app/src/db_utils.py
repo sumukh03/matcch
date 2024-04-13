@@ -5,10 +5,14 @@ from sqlalchemy import create_engine, insert, select, and_, delete, or_
 from sqlalchemy.orm import sessionmaker
 import os
 # Create an engine for a SQLite database
-# engine = create_engine("sqlite:///instance/database.db", echo=True)
+engine = create_engine("sqlite:///instance/database.db", echo=True)
 
-engine = create_engine(
-   os.environ("DB_URL"))
+# URL=os.environ["DB_URL"]
+# engine = create_engine(
+#     "postgresql://postgres:postgres@db:3307/postgres"
+#    )
+# engine = create_engine(
+#     os.getenv('SQLALCHEMY_DATABASE_URI', 'mysql+pymysql://root:root@db:3306/matcch'))
 # engine = create_engine(
 #     "mysql+pymysql://root:root@mysql:3307/matcch")
 
@@ -24,10 +28,16 @@ def get_fields_table(tbl):
 
 
 def Insert_table(tbl, data):
-    result = engine.execute(
-        insert(tables[tbl]),
-        data,
-    )
+    with engine.connect() as conn:
+        result = conn.execute(
+            insert(tables[tbl]),
+            data,
+        )
+
+    # result = engine.execute(
+    #     insert(tables[tbl]),
+    #     data,
+    # )
 
     return result
 

@@ -1,4 +1,3 @@
-from .extension import session
 from src.extension import db
 from .db_utils import *
 import joblib
@@ -24,10 +23,8 @@ def create_user(data):
         id = Insert_table("users", [{"mobile": data["mobile"]}])
         if id:
             condition = {"column": ["mobile"], "value": [data["mobile"]]}
-            user_data = Select_table("users", condition)[0]
-            session["logged_in"] = True
-            session["user_id"] = user_data["user_id"]
-            return make_response(None, True, "User Created")
+            user_data = Select_table("users", condition)[-1]
+            return make_response(user_data["user_id"], True, "User Created")
         else:
             return make_response(None, False, "User could not be Created")
     return make_response(None, False, f"Please enter Mobile number")
@@ -116,22 +113,24 @@ def convert_score(data):
 
 
 def test_score_to_db(data):
-    if session.get("logged_in", None):
+    print(data)
+    if data.get("user_id",None):
         scores = calc_from_rawData(data["answers"])
 
         required_fields = get_fields_table("user_score")
-        required_fields["user_id"] = session["user_id"]
+        required_fields["user_id"] = data["user_id"]
         required_fields.update(scores)
         required_fields.pop("id")
 
         id = Insert_table("user_score", [required_fields])
 
         if id:
-            return make_response(None, True, "Score Posted")
+            # return make_response(None, True, "Score Posted")
+            return get_user_recommendations({"user_id":data["user_id"]})
         else:
             return make_response(None, False, "Score not posted")
-
-    return make_response(None, False, "user details not found in the session")
+        
+    return make_response(None, False, "Please enter the user_id")
 
 
 def make_recommendations_data(user_id, compatable_users):
@@ -183,21 +182,21 @@ def make_recommendations_data(user_id, compatable_users):
     return compatable_users
 
 
-def get_user_recommendations():
-    user_id = session.get("user_id", None)
-    if session.get("logged_in", None) and user_id:
+def get_user_recommendations(data):
+    user_id = data.get("user_id", None)
+    if user_id:
         compatable_users = find_compatible_vectors(user_id)
         final_compatable = make_recommendations_data(
-            session["user_id"], compatable_users
+            user_id, compatable_users
         )
-        print(final_compatable)
+
         return make_response(final_compatable, True, f"compatibility recommendations ")
-    return make_response(None, False, "user details not found in the session")
+    return make_response(None, False, "Please enter user_id")
 
 
 def calc_from_rawData(answers):
     answers = list(map(int, answers[:50]))
-    print(answers)
+
     d = {
         "Extrav": sum(answers[:10]),
         "Neuro": sum(answers[10:20]),
@@ -211,13 +210,13 @@ def calc_from_rawData(answers):
 def insert_initial_data():
     condition = {"column": ["user_id"], "value": [5000]}
     if not Select_table("user_score", condition):
-        print("insert_initial_data")
+
         data = pd.read_json("src/datasets/data.json")
         l = []
         for i in range(1, len(data) + 1):
             l.append({"mobile": i})
         ids = Insert_table("users", l)
-        print(ids)
+
 
         data.rename(
             columns={
