@@ -24,3 +24,10 @@ def recommendations():
     user_recommendations = get_user_recommendations(data)
     return jsonify(user_recommendations)
 
+
+
+@users_end.route("/get_user_details", methods=["POST"])
+def user_details():
+    data = request.get_json()
+    resp=get_user_data_id(data["user_id"])
+    return jsonify(resp)

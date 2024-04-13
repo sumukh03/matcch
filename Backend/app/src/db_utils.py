@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, insert, select, and_, delete, or_
 from sqlalchemy.orm import sessionmaker
 import os
 # Create an engine for a SQLite database
-engine = create_engine("sqlite:///instance/database.db", echo=True)
+# engine = create_engine("sqlite:///instance/database.db", echo=True)
 
 # URL=os.environ["DB_URL"]
 # engine = create_engine(
@@ -17,7 +17,9 @@ engine = create_engine("sqlite:///instance/database.db", echo=True)
 #     "mysql+pymysql://root:root@mysql:3307/matcch")
 
 # engine = create_engine(f"mysql+pymysql://{os.environ['MYSQL_USER']}:{os.environ['MYSQL_PASSWORD']}@{os.environ['MYSQL_HOST']}/{os.environ['MYSQL_DATABASE']}")
+# DATABASE_URI = os.environ.get('DATABASE_URI')
 
+engine = create_engine("mysql+pymysql://username:password@db:3306/dbname")
 
 tables = {"users": users, "user_score": user_score}
 

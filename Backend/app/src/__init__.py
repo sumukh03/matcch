@@ -12,7 +12,9 @@ def create_app():
 
     app = Flask(__name__)
     CORS(app, supports_credentials=True)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+    DATABASE_URI = os.environ.get('DATABASE_URI')
+
+    app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://username:password@db:3306/dbname"
     # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:palaramukh@localhost/matcch"
     # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@mysql:3307/matcch"
     # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres@db:3307/postgres"

@@ -1,122 +1,82 @@
+
 # version: '3'
 
 # services:
-#   db:
-#     container_name: mysql
+#   database:
+#     container_name: mysql-container
 #     image: mysql:latest
+#     restart: always
 #     ports:
-#       - "3307:3307"
+#       - "3307:3306"
+#     expose:
+#       - '3307'
 #     environment:
-#       # MYSQL_ROOT_PASSWORD: root
-#       # MYSQL_DATABASE: matcch
 #       MYSQL_ROOT_PASSWORD: root
 #       MYSQL_DATABASE: matcch
-#       # MYSQL_USER: user1
-#       # MYSQL_PASSWORD: u1
+#       MYSQL_USER: intern
+#     # networks:
+#     #   - my-network
 
-#   # migrate:
+#   # flask-app:
 #   #   build: ./Backend
 #   #   depends_on:
-#   #     - db
+#   #     - database
+#   #   ports:
+#   #     - "5000:5000"
 #   #   environment:
 #   #     FLASK_APP: app.py
-#   #   command: >
-#   #     bash -c "flask db init" 
-#   #     bash -c "flask db migrate" 
-#   #     bash -c "flask db upgrade"
-
-#   flask-app:
-#     build: ./Backend
-#     depends_on:
-#       - db
-#     ports:
-#       - "5000:5000"
-#     environment:
-#       FLASK_APP: app.py
-#       MYSQL_HOST: db
-#       MYSQL_USER: root
-#       MYSQL_PASSWORD : root
-#       MYSQL_DATABASE: matcch
-#     # command: flask run --host=0.0.0.0
-
-
-# version: '3'
-
-# services:
-#   db:
-#     container_name: db
-#     image: postgres:12
-#     ports:
-#       - "3307:3307"
-#     environment:
-#       - POSTGRES_PASSWORD=postgres
-#       - POSTGRES_USER=postgres
-#       - POSTGRES_DB=postgres
-
-
-
-#   flask-app:
-#     build: ./Backend
-#     depends_on:
-#       - db
-#     ports:
-#       - "5000:5000"
-#     links:
-#       - db
-
-    # command: flask run --host=0.0.0.0
-
-
-
-# version: '3'
-
-# services:
-#   # db:
-#   #   container_name: mysql
-#   #   image: mysql:latest
-#   #   ports:
-#   #     - "3307:3307"
-#   #   environment:
-#   #     MYSQL_ROOT_PASSWORD: root
+#   #     MYSQL_HOST: database
+#   #     MYSQL_USER: root
+#   #     MYSQL_PASSWORD: root
 #   #     MYSQL_DATABASE: matcch
+#   #   networks:
+#   #     - my-network
 
-#   flask-app:
-#     build: ./Backend
-#     # depends_on:
-#     #   - db
+# # networks:
+# #   my-network:
+
+
+# version: "3.7"
+# services:
+#   mysql:
+#     image: mysql:latest
+#     container_name: mysql-container
+#     restart: always                       # always restart
+#     environment:
+#       MYSQL_DATABASE: 'test'              # name of database
+#       MYSQL_USER: 'sample'                # sample is the name of user
+#       MYSQL_PASSWORD: 'password'          # password for sample user
+#       MYSQL_ROOT_PASSWORD: 'password'     # password for root user
 #     ports:
-#       - "5000:5000"
-#     command: flask run --host=0.0.0.0
+#       - '4000:3306'                       # host port 3306 is mapper to docker port 3306
+#     expose:
+#       - '3306'
+#     volumes:
+#       - mysql-db:/var/lib/mysql
+# volumes:
+#         mysql-db:
 
 
 version: '3'
 
 services:
-  db:
-    container_name: mysql
-    image: mysql:latest
-    ports:
-      - "3307:3307"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: matcch
-    networks:
-      - my-network
-
-  flask-app:
-    build: ./Backend
-    depends_on:
-      - db
+  app:
+    build:
+      context: ./Backend
     ports:
       - "5000:5000"
     environment:
-      FLASK_APP: app.py
-      MYSQL_HOST: db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-      MYSQL_DATABASE: matcch
-    networks:
-      - my-network
+      - DATABASE_URI=mysql+pymysql://username:password@db:3306/dbname
+    depends_on:
+      - db
 
-networks:
-  my-network:
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=dbname
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

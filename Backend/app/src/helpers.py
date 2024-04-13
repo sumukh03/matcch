@@ -21,6 +21,7 @@ def create_user(data):
     insert_initial_data()
     if data.get("mobile", None):
         id = Insert_table("users", [{"mobile": data["mobile"]}])
+        print("\n\n\n",id)
         if id:
             condition = {"column": ["mobile"], "value": [data["mobile"]]}
             user_data = Select_table("users", condition)[-1]
@@ -37,7 +38,7 @@ def get_user_data(columns, values):
 
 def get_user_data_id(user_id):
     condition = {"column": ["user_id"], "value": [user_id]}
-    return Select_table("users", condition)[0]
+    return Select_table("users", condition)
 
 
 order_vector = ("Open", "Consc", "Extrav", "Agree", "Neuro")
