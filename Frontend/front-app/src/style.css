@@ -1,0 +1,141 @@
+  div{
+    background-color: aliceblue;
+     margin: 10px;
+    border-width: 5px ;
+    border-radius: 20px;
+    border-bottom: 20px;
+  }
+
+  #Matcch{
+    background-color: beige;
+    border-radius: 30px;
+    margin: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  #Matcch:hover{
+    background-color: rgb(247, 227, 246);
+  }
+
+  .SubmitButton{
+    display: inline-block;
+    background-color: aliceblue;
+    border-style: solid;
+    margin: 15px;
+    border-width: 1px;
+  }
+
+  .SubmitButton:hover{
+    background-color: rgb(247, 227, 246);
+    cursor: pointer;
+  }
+
+  .options{
+    padding:10px;
+    margin: 10px 2px ;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px ;
+    transition: all 0.3s;
+    border-style: none;
+    font-weight: bold
+
+  }
+
+
+
+  #Strongly{
+    background-color: rgb(170, 255, 170);
+    transition: transform 0.1s ease;
+  }
+
+  #Agree{
+    background-color: rgb(195, 251, 195);
+    transition: transform 0.1s ease;
+  }
+
+  #Neutral{
+    background-color: rgb(250, 250, 126);
+    transition: transform 0.1s ease;
+
+  }
+
+  #Disagree{
+    background-color: rgb(255, 208, 119);
+    transition: transform 0.1s ease;
+  }
+
+  #StronglyDis{
+    background-color: rgb(249, 134, 134);
+    transition: transform 0.1s ease;
+  }
+
+
+  #Strongly:hover{
+    background-color: rgb(74, 191, 74);
+    transform: scale(1.3);
+  }
+
+  #Agree:hover{
+    background-color: rgb(65, 237, 65);
+    transform: scale(1.3);
+  }
+
+  #Neutral:hover{
+    background-color: yellow;
+    transform: scale(1.3);
+
+  }
+
+  #Disagree:hover{
+    background-color: orange;
+    transform: scale(1.3);
+  }
+
+  #StronglyDis:hover{
+    background-color: rgb(244, 76, 76);
+    transform: scale(1.3);
+  }
+
+
+  .questions{
+    border-radius: 10px;
+    margin: 10px;
+    transition: transform 0.5s ease;
+    font-family: 'Roboto', sans-serif;
+    
+  }
+
+  .questions:hover{
+    transform: scale(1.6);
+    
+  }
+
+  .profile{
+    border: 2px;
+    border-style: dashed;
+    transition: transform 0.3s ease;
+    margin :30px
+  }
+
+  .profile:hover{
+    transform: scale(1.025);
+  }
+
+  .userScores{
+    display: flex;
+  }
+
+  .scoreTable{
+    display: inline;
+    border-collapse: separate;
+    font-family: Consolas, Courier, monospace;
+  }
+
+  .scoreTable td {
+    padding: 0 50px; 
+  }
