@@ -1,8 +1,6 @@
 # Use an official Python runtime as a parent image
 FROM python:3.10
 
-RUN apt-get update && apt-get install -y sqlitebrowser
-# Set the working directory inside the container
 WORKDIR /work-dir
 
 # Copy the requirements file to the container
@@ -25,6 +23,6 @@ RUN flask db init
 RUN flask db migrate 
 RUN flask db upgrade
 
-CMD ["flask", "run"]
+CMD ["python", "app.py"]
 
 

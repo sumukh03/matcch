@@ -2,20 +2,20 @@
 # version: '3'
 
 # services:
-#   database:
-#     container_name: mysql-container
-#     image: mysql:latest
-#     restart: always
-#     ports:
-#       - "3307:3306"
-#     expose:
-#       - '3307'
-#     environment:
-#       MYSQL_ROOT_PASSWORD: root
-#       MYSQL_DATABASE: matcch
-#       MYSQL_USER: intern
-#     # networks:
-#     #   - my-network
+  # database:
+  #   container_name: mysql-container
+  #   image: mysql:latest
+  #   restart: always
+  #   ports:
+  #     - "3307:3306"
+  #   expose:
+  #     - '3307'
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: matcch
+  #     MYSQL_USER: intern
+  #   # networks:
+  #   #   - my-network
 
 #   # flask-app:
 #   #   build: ./Backend
@@ -69,7 +69,31 @@ services:
     depends_on:
       - frontend
 
+    # networks:
+    #   - my-network
+
   frontend:
     build: ./Frontend
     ports:
       - "3000:3000"
+    # networks:
+    #   - my-network
+
+  # database:
+  #   container_name: mysql-container
+  #   image: mysql:latest
+  #   restart: always
+  #   # ports:
+  #   #   - "3307:3306"
+  #   expose:
+  #     - '3306'
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_DATABASE: matcch
+  #   networks:
+  #     - my-network
+
+
+# networks:
+#   my-network:
+

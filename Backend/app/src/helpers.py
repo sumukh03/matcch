@@ -18,7 +18,7 @@ def make_response(data, status, message):
 
 
 def create_user(data):
-    # insert_initial_data()
+    insert_initial_data()
     if data.get("mobile", None):
         id = Insert_table("users", [{"mobile": data["mobile"]}])
         print("\n\n\n",id)
@@ -27,8 +27,8 @@ def create_user(data):
             user_data = Select_table("users", condition)[-1]
             return make_response(user_data["user_id"], True, "User Created")
         else:
-            return make_response(None, False, "User could not be Created")
-    return make_response(None, False, f"Please enter Mobile number")
+            return make_response(id, False, "User could not be Created")
+    return make_response(id, False, f"Please enter Mobile number")
 
 
 def get_user_data(columns, values):
