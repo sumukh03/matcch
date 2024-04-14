@@ -72,13 +72,14 @@ http://localhost:3000/
 + Then , inside the cluster , we find the similar vectors using the distance between them.
 + This distance determines the closest vectors. 
 + To the closest vectors , we find the compatibility points.
+<img width="985" alt="Screenshot 2024-04-15 at 2 17 57 AM" src="https://github.com/sumukh03/matcch/assets/126386392/949d31fa-4615-409c-9cbd-8be6cccbe61f">
 
 
 #### Kmeans Clustering 
 + The raw data from the dataset is filtered to form the score vector of order [ O , C , E , A , N ]
 + These vectors are then fitted to the Kmeans model consisting centroids.
 + The optimum number of centroids are calculated using Elbow method using WCSS (with-in-cluster sum of squares)
-
+<img width="413" alt="Screenshot 2024-04-15 at 2 20 28 AM" src="https://github.com/sumukh03/matcch/assets/126386392/9a7e7b29-b3f3-4bf4-aeb2-527f1b1c3c35">
 
 #### Categorising the new vector
 + When we have the new user_score vector , firstly , we try to find the cluster to which the vector belongs 
@@ -86,3 +87,4 @@ http://localhost:3000/
 
 #### The Compatibility Factor
 + Now that we have the similar vectors , according to the data of Compatibility , we assign the Compatibility points to each simiar vector with respect to the new user
+<img width="842" alt="Screenshot 2024-04-15 at 2 21 38 AM" src="https://github.com/sumukh03/matcch/assets/126386392/b996965a-633b-4abc-bcb1-f052eb4fa73c">
