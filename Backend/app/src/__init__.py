@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from .extension import db
 import os
 
+
 def create_app():
     from src.views.user_views import users_end
     from src.views.processing_views import process_end
@@ -13,21 +14,15 @@ def create_app():
     app = Flask(__name__)
     CORS(app, supports_credentials=True)
 
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@database/matcch"
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:palaramukh@localhost/matcch"
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:root@mysql:3307/matcch"
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:postgres@db:3307/postgres"
-    # app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{os.environ['MYSQL_USER']}:{os.environ['MYSQL_PASSWORD']}@{os.environ['MYSQL_HOST']}/{os.environ['MYSQL_DATABASE']}"
-    # app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI', 'mysql+pymysql://root:root@db:3306/matcch')
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
-    
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+
     db.init_app(app)
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["SECRET_KEY"] = "matcch"
 
     migrate = Migrate(app, db)
-    migrate.init_app(app,db)
+    migrate.init_app(app, db)
 
     app.register_blueprint(users_end)
     app.register_blueprint(process_end)

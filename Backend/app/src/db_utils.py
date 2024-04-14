@@ -1,26 +1,11 @@
 from src.models.user_models import *
 from src.models.processing_models import *
 from src.extension import db
-from sqlalchemy import create_engine, insert, select, and_, delete, or_,MetaData
+from sqlalchemy import create_engine, insert, select, and_, delete, or_, MetaData
 from sqlalchemy.orm import sessionmaker
 import os
 
-# Create an engine for a SQLite database
-engine = create_engine("sqlite:///instance/database.db", echo=True,pool_pre_ping=True)
-
-# URL=os.environ["DB_URL"]
-# engine = create_engine(
-#     "postgresql://postgres:postgres@db:3307/postgres"
-#    )
-# engine = create_engine(
-#     os.getenv('SQLALCHEMY_DATABASE_URI', 'mysql+pymysql://root:root@db:3306/matcch'))
-# engine = create_engine(
-#     "mysql+pymysql://root:root@mysql:3307/matcch")
-
-# engine = create_engine(f"mysql+pymysql://{os.environ['MYSQL_USER']}:{os.environ['MYSQL_PASSWORD']}@{os.environ['MYSQL_HOST']}/{os.environ['MYSQL_DATABASE']}")
-# DATABASE_URI = os.environ.get('DATABASE_URI')
-
-# engine = create_engine("mysql+pymysql://root:root@database/matcch")
+engine = create_engine("sqlite:///instance/database.db", echo=True, pool_pre_ping=True)
 
 tables = {"users": users, "user_score": user_score}
 
@@ -31,25 +16,16 @@ def get_fields_table(tbl):
 
 
 def Insert_table(tbl, data):
-
     try:
         with engine.connect() as conn:
             result = conn.execute(insert(tables[tbl]), data)
             conn.commit()
-        # result = engine.execute(
-        #     insert(tables[tbl]),
-        #     data,
-        # )
         return result
     except Exception as e:
         return False
 
-        
-    
-
 
 def Select_table(tbl, condition):
-    # condition={column:["mobile"],value:["960..."]}
     filter_conditions = [
         getattr(tables[tbl], k) == v
         for k, v in zip(condition["column"], condition["value"])
@@ -58,12 +34,7 @@ def Select_table(tbl, condition):
     output = []
 
     result = tables[tbl].query.filter(and_(*filter_conditions)).all()
-    # output i.e , the result is the object representation of the model
-    for (
-        row
-    ) in (
-        result
-    ):  # filtering the _sa_instance_state that is associated with the model , and retrieveing values
+    for row in result:
         keys = row.__dict__
         keys.pop("_sa_instance_state", None)
         output.append(keys)
@@ -72,8 +43,6 @@ def Select_table(tbl, condition):
 
 
 def Delete_table(tbl, condition):
-    # delete(user_table).where(user_table.c.name == "patrick")
-    # condition = {"column":["col_name"],"value":["value"]}
     filter_conditions = [
         getattr(tables[tbl], k) == v
         for k, v in zip(condition["column"], condition["value"])

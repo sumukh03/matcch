@@ -13,6 +13,7 @@ def process_endpoint():
 
 @process_end.route("/test_score", methods=["POST"])
 def test_score():
+    """This function is used to post the test score of the user"""
     data = request.get_json()
     result = test_score_to_db(data)
     return jsonify(result)

@@ -5,6 +5,7 @@ import numpy as np
 
 
 def get_kmeans_model():
+    """This function is to load the kmeans model"""
     file_path = "src/kmeans_model_5000.pkl"
     loaded_model = joblib.load(file_path)
     return loaded_model
@@ -18,10 +19,12 @@ def make_response(data, status, message):
 
 
 def create_user(data):
+    """This function creates the new user
+    It ACCEPTS the mobile number and
+    IT RETURNS the user_id of the new user"""
     insert_initial_data()
     if data.get("mobile", None):
         id = Insert_table("users", [{"mobile": data["mobile"]}])
-        print("\n\n\n",id)
         if id:
             condition = {"column": ["mobile"], "value": [data["mobile"]]}
             user_data = Select_table("users", condition)[-1]
@@ -32,11 +35,13 @@ def create_user(data):
 
 
 def get_user_data(columns, values):
+    """This function is used to get the user data from the database based on the condition"""
     condition = {"column": columns, "value": values}
     return Select_table("users", condition)
 
 
 def get_user_data_id(user_id):
+    """This function is used to get the user data based on the user_id"""
     condition = {"column": ["user_id"], "value": [user_id]}
     return Select_table("users", condition)
 
@@ -45,6 +50,7 @@ order_vector = ("Open", "Consc", "Extrav", "Agree", "Neuro")
 
 
 def dict_to_order_vec(data):
+    """This function is used to order the scores into a vector"""
     res = []
     for key in order_vector:
         res.append(data[key])
@@ -63,6 +69,12 @@ def get_user_score(user_id):
 
 
 def find_compatible_vectors(user_id):
+    """This function ACCEPTS the user_id
+    it gets the user_score vector from the database
+    it classifies the user into one of the cluster
+    it then finds the similar vectors based on the linear distance
+    RETURNS the list of compatible users from the database"""
+
     query_vector = get_user_score(user_id)
     cluster_label = kmeans.predict([query_vector])[0]
 
@@ -86,6 +98,8 @@ def find_compatible_vectors(user_id):
 
 
 def convert_score(data):
+    """This function is used to convert the user_score vector to the resultant grade vector
+    to get the compatibility scores"""
     res = []
 
     for v in data:
@@ -114,8 +128,11 @@ def convert_score(data):
 
 
 def test_score_to_db(data):
-    print(data)
-    if data.get("user_id",None):
+    """This funciton is used process the raw test score of the user
+    and store it to the database
+    RETURNS the recommended users"""
+
+    if data.get("user_id", None):
         scores = calc_from_rawData(data["answers"])
 
         required_fields = get_fields_table("user_score")
@@ -126,15 +143,18 @@ def test_score_to_db(data):
         id = Insert_table("user_score", [required_fields])
 
         if id:
-            # return make_response(None, True, "Score Posted")
-            return get_user_recommendations({"user_id":data["user_id"]})
+            return get_user_recommendations({"user_id": data["user_id"]})
         else:
             return make_response(None, False, "Score not posted")
-        
+
     return make_response(None, False, "Please enter the user_id")
 
 
 def make_recommendations_data(user_id, compatable_users):
+    """This function is used to get the compatability points of the similar users
+    It ACCEPTS the user_id of the current user and the scores of the compatable users
+    It RETURNS the compatable users along with the compatability points"""
+
     def get_compatability_csvs():
         import os
 
@@ -184,18 +204,19 @@ def make_recommendations_data(user_id, compatable_users):
 
 
 def get_user_recommendations(data):
+    """This function ACCEPTS the user_id
+    RETURNS the compatible users"""
     user_id = data.get("user_id", None)
     if user_id:
         compatable_users = find_compatible_vectors(user_id)
-        final_compatable = make_recommendations_data(
-            user_id, compatable_users
-        )
+        final_compatable = make_recommendations_data(user_id, compatable_users)
 
         return make_response(final_compatable, True, f"compatibility recommendations ")
     return make_response(None, False, "Please enter user_id")
 
 
 def calc_from_rawData(answers):
+    """this function converts the raw test data to the user_score vector"""
     answers = list(map(int, answers[:50]))
 
     d = {
@@ -211,13 +232,11 @@ def calc_from_rawData(answers):
 def insert_initial_data():
     condition = {"column": ["user_id"], "value": [5000]}
     if not Select_table("user_score", condition):
-
         data = pd.read_json("src/datasets/data.json")
         l = []
         for i in range(1, len(data) + 1):
             l.append({"mobile": i})
         ids = Insert_table("users", l)
-
 
         data.rename(
             columns={
