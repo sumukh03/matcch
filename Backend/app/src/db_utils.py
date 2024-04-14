@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 # Create an engine for a SQLite database
-engine = create_engine("sqlite:///instance/database.db", echo=True,pool_pre_ping=True)
+# engine = create_engine("sqlite:///instance/database.db", echo=True,pool_pre_ping=True)
 
 # URL=os.environ["DB_URL"]
 # engine = create_engine(
@@ -20,7 +20,7 @@ engine = create_engine("sqlite:///instance/database.db", echo=True,pool_pre_ping
 # engine = create_engine(f"mysql+pymysql://{os.environ['MYSQL_USER']}:{os.environ['MYSQL_PASSWORD']}@{os.environ['MYSQL_HOST']}/{os.environ['MYSQL_DATABASE']}")
 # DATABASE_URI = os.environ.get('DATABASE_URI')
 
-# engine = create_engine("mysql+pymysql://root:root@database/matcch")
+engine = create_engine("mysql+pymysql://root:root@database:3306/matcch")
 
 tables = {"users": users, "user_score": user_score}
 
