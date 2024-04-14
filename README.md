@@ -37,11 +37,29 @@ also known as OCEAN traits.
 
 
 
-## Deployment
+## Run Locally
 
-To deploy this project run
+Clone the project
 
 ```bash
-  
+  git clone https://github.com/sumukh03/matcch.git
+```
+
+Go to the project directory
+
+```bash
+  cd matcch
+```
+
+Install the Docker and DockerCompose and run 
+
+```bash
+docker compose up --build
+```
+
+After the server starts   
+On the browser , Open 
+```bash
+http://localhost:3000/
 ```
 
