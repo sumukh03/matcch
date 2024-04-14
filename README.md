@@ -1,52 +1,54 @@
 
+# Matcch
 
----
+Matcch is a __USER RECOMMENDATION__ system that works on the __PERSONALITY__ of the user.  
+It is totally based on the Big5 personality traits of the user.  
+In this we evaluate the user for their traits.  
 
-# matcch
+They are:  
+&nbsp;&nbsp;&nbsp;&nbsp;1 : O - Openness.  
+&nbsp;&nbsp;&nbsp;&nbsp;2 : C - Conscientiousness.  
+&nbsp;&nbsp;&nbsp;&nbsp;3 : E - Extraversion.  
+&nbsp;&nbsp;&nbsp;&nbsp;4 : A - Agreeableness.  
+&nbsp;&nbsp;&nbsp;&nbsp;5 : N - Neuroticism.  
+also known as OCEAN traits.  
 
-## Description
-This project consists of a frontend and a backend component, both running in separate Docker containers. The frontend is built with React, while the backend is built with Flask.
+### STEPS 
+1. The user takes a __personality test__ which gives the personality score of the user.   
+2. Based on the score, user is categorised into one of the __four clusters__.  
+3. There after we use the Euclidean distance to find the nearest user personalities in the cluster.
 
-## Installation and Usage
 
-### Frontend Setup
-1. Navigate to the Frontend directory:
-    ```
-    cd Frontend
-    ```
-2. Build the Docker image for the React app:
-    ```
-    docker build -t react-app .
-    ```
-3. Run the Docker container for the React app:
-    ```
-    docker run react-app
-    ```
 
-### Backend Setup
-1. Navigate to the Backend directory:
-    ```
-    cd Backend
-    ```
-2. Build the Docker image for the Flask app:
-    ```
-    docker build -t flask-app .
-    ```
-3. Run the Docker container for the Flask app:
-    ```
-    docker run flask-app
-    ```
+## Datasets
 
-### Running All Containers
-To run all the containers together, from the main directory (i.e., `matcch`), run:
+ - [Training data for Big5 personality traits](https://www.kaggle.com/datasets/tunguz/big-five-personality-test)
+ - [Compatibility data (raw format)](https://www.typematchapp.com/who-should-you-date-based-on-your-big-5-personality-results/)
+
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/sumukh03/matcch.git
 ```
+
+Go to the project directory
+
+```bash
+  cd matcch
+```
+
+Install the Docker and DockerCompose and run 
+
+```bash
 docker compose up --build
 ```
 
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
-
----
+After the server starts   
+On the browser , Open 
+```bash
+http://localhost:3000/
+```

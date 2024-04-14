@@ -1,18 +1,14 @@
-# Use the official Node.js image as a base
 FROM node:18-alpine 
 
-# Set the working directory in the container
-WORKDIR /matcch
+WORKDIR /front-app
 
-# Copy the package.json and package-lock.json files into the container
-COPY matcch/public/ /matcch/public
-COPY matcch/src/ /matcch/src
-COPY matcch/package.json /matcch/
+COPY front-app/public/ /front-app/public
+COPY front-app/src/ /front-app/src
+COPY front-app/package.json /front-app/
 
-# Install dependencies
+
 RUN npm install
 
-# Build the React app
 CMD ["npm", "start"]
 
 EXPOSE 3000
