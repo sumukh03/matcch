@@ -20,16 +20,6 @@ also known as OCEAN traits.
 
 
 
-
-
-
-
-
-
-
-
-
-
 ## Datasets
 
  - [Training data for Big5 personality traits](https://www.kaggle.com/datasets/tunguz/big-five-personality-test)
@@ -62,4 +52,3 @@ On the browser , Open
 ```bash
 http://localhost:3000/
 ```
-
