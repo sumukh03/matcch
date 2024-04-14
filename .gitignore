@@ -1,5 +1,4 @@
 Backend/testing.py
 Backend/migrations/*
 # Backend/instance/*
-Frontend/.vscode/*
 __pycache__/
