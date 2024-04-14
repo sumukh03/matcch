@@ -10,3 +10,4 @@ joblib
 pymysql
 scikit-learn
 cryptography
+psycopg2

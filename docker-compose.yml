@@ -1,16 +1,39 @@
 version: '3'
 
 services:
+  database:
+    image: postgres:latest
+    container_name: database-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: flask-db
+      POSTGRES_USER: interm
+      POSTGRES_PASSWORD: interm
+    networks:
+      - my-network
+
   backend:
     build:
       context: ./Backend
     ports:
       - "5000:5000"
-
     depends_on:
-      - frontend
+      - database
+    environment:
+      DATABASE_URI: postgresql://interm:interm@database/flask-db
+    networks:
+      - my-network
 
   frontend:
     build: ./Frontend
     ports:
       - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

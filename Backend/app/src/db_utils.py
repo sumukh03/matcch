@@ -5,7 +5,8 @@ from sqlalchemy import create_engine, insert, select, and_, delete, or_, MetaDat
 from sqlalchemy.orm import sessionmaker
 import os
 
-engine = create_engine("sqlite:///instance/database.db", echo=True, pool_pre_ping=True)
+# engine = create_engine("sqlite:///instance/database.db", echo=True, pool_pre_ping=True)
+engine = create_engine("postgresql://interm:interm@localhost/flask-db", echo=True, pool_pre_ping=True)
 
 tables = {"users": users, "user_score": user_score}
 
