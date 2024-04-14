@@ -1,10 +1,10 @@
 FROM node:18-alpine 
 
-WORKDIR /matcch
+WORKDIR /react-app
 
-COPY matcch/public/ /matcch/public
-COPY matcch/src/ /matcch/src
-COPY matcch/package.json /matcch/
+COPY react-app/public/ /react-app/public
+COPY react-app/src/ /react-app/src
+COPY react-app/package.json /react-app/
 
 
 RUN npm install
