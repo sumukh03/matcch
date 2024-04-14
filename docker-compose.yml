@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./Backend
+    # ports:
+    #   - "5000:5000"
+
+    expose:
+      - "5000"
+    depends_on:
+      - database
+      - frontend
+
+    networks:
+      - my-network
+
+  frontend:
+    build: ./Frontend
+    ports:
+      - "3000:3000"
+    
+    networks:
+      - my-network
+
+  database:
+    container_name: mysql-container
+    image: mysql:latest
+    restart: always
+    expose:
+      - '3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: matcch
+    networks:
+      - my-network
+
+
+networks:
+  my-network:
+
