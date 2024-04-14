@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, insert, select, and_, delete, or_
 from sqlalchemy.orm import sessionmaker
 import os
 # Create an engine for a SQLite database
-# engine = create_engine("sqlite:///instance/database.db", echo=True)
+engine = create_engine("sqlite:///instance/database.db", echo=True)
 
 # URL=os.environ["DB_URL"]
 # engine = create_engine(
@@ -19,7 +19,7 @@ import os
 # engine = create_engine(f"mysql+pymysql://{os.environ['MYSQL_USER']}:{os.environ['MYSQL_PASSWORD']}@{os.environ['MYSQL_HOST']}/{os.environ['MYSQL_DATABASE']}")
 # DATABASE_URI = os.environ.get('DATABASE_URI')
 
-engine = create_engine("mysql+pymysql://username:password@db:3306/dbname")
+# engine = create_engine("mysql+pymysql://username:password@db:3306/dbname")
 
 tables = {"users": users, "user_score": user_score}
 
@@ -30,17 +30,17 @@ def get_fields_table(tbl):
 
 
 def Insert_table(tbl, data):
-    with engine.connect() as conn:
-        result = conn.execute(
-            insert(tables[tbl]),
-            data,
-        )
 
     # result = engine.execute(
     #     insert(tables[tbl]),
     #     data,
     # )
 
+
+    with engine.connect() as conn:
+        result=conn.execute(insert(tables[tbl]),
+        data)
+        
     return result
 
 
@@ -87,4 +87,4 @@ def Insert_df(data):
     data.reset_index(inplace=True)
     data.rename(columns={"index": "user_id"}, inplace=True)
     data.user_id += 1
-    data.to_sql("user_score", con=engine, if_exists="append", index=False)
+    data.to_sql("user_score", con=engine.connect(), if_exists="append", index=False)

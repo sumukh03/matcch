@@ -60,23 +60,16 @@
 version: '3'
 
 services:
-  app:
+  backend:
     build:
       context: ./Backend
     ports:
       - "5000:5000"
-    environment:
-      - DATABASE_URI=mysql+pymysql://username:password@db:3306/dbname
+
     depends_on:
-      - db
+      - frontend
 
-  db:
-    image: mysql:latest
-    environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=dbname
-    volumes:
-      - db_data:/var/lib/mysql
-
-volumes:
-  db_data:
+  frontend:
+    build: ./Frontend
+    ports:
+      - "3000:3000"

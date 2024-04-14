@@ -18,7 +18,7 @@ def make_response(data, status, message):
 
 
 def create_user(data):
-    insert_initial_data()
+    # insert_initial_data()
     if data.get("mobile", None):
         id = Insert_table("users", [{"mobile": data["mobile"]}])
         print("\n\n\n",id)
