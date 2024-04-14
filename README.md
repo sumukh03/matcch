@@ -20,6 +20,16 @@ also known as OCEAN traits.
 
 
 
+
+
+
+
+
+
+
+
+
+
 ## Datasets
 
  - [Training data for Big5 personality traits](https://www.kaggle.com/datasets/tunguz/big-five-personality-test)
@@ -52,3 +62,27 @@ On the browser , Open
 ```bash
 http://localhost:3000/
 ```
+
+
+## Technical Details
+
+#### The Intuition
++ According to the compatibility data mentioned , similar users are more compatable with eachother.
++ Hence, to find the compatible users , we fist find the cluster that the user belongs to.
++ Then , inside the cluster , we find the similar vectors using the distance between them.
++ This distance determines the closest vectors. 
++ To the closest vectors , we find the compatibility points.
+
+
+#### Kmeans Clustering 
++ The raw data from the dataset is filtered to form the score vector of order [ O , C , E , A , N ]
++ These vectors are then fitted to the Kmeans model consisting centroids.
++ The optimum number of centroids are calculated using Elbow method using WCSS (with-in-cluster sum of squares)
+
+
+#### Categorising the new vector
++ When we have the new user_score vector , firstly , we try to find the cluster to which the vector belongs 
++ From the cluster , we use the linear distance to find nearest vectors to the new user_score vector.
+
+#### The Compatibility Factor
++ Now that we have the similar vectors , according to the data of Compatibility , we assign the Compatibility points to each simiar vector with respect to the new user
