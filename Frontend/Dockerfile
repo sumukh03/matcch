@@ -1,10 +1,10 @@
 FROM node:18-alpine 
 
-WORKDIR /react-app
+WORKDIR /front-app
 
-COPY react-app/public/ /react-app/public
-COPY react-app/src/ /react-app/src
-COPY react-app/package.json /react-app/
+COPY front-app/public/ /front-app/public
+COPY front-app/src/ /front-app/src
+COPY front-app/package.json /front-app/
 
 
 RUN npm install
