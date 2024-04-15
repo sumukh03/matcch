@@ -83,6 +83,11 @@ http://localhost:3000/
 + Now that we have the similar vectors to the given user vector
 + We assign the Compatibility points to each of the similar vectors with respect to the new user vector from the compatibility data.
 
+#### Database
++ The database is initialised with the training data of 5000 users for simplicity.
++ When the new user takes the test , the score is store on the database.
++ When the new user's count reaches a threshold , we can use that data and retrain our model.
+
 ### Sample output 
 Here is a quick look of the result.  
 For the given user score vector , the user with user_id 505 is the most compatible user with the corresponding compatible points.  
