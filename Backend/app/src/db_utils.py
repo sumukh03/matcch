@@ -1,3 +1,7 @@
+""" This file acts as a database layer 
+    The functions take the data which is mapped to the models(tables) of the application
+    sqlalchemy generates required queries"""
+
 from src.models.user_models import *
 from src.models.processing_models import *
 from src.extension import db
@@ -11,11 +15,18 @@ tables = {"users": users, "user_score": user_score}
 
 
 def get_fields_table(tbl):
+    """ Function to get the columns of the table
+        It uses the special methods provided by the models
+        RETURNS the dictionary {"column_name":""} """
     required_fields = {x.name: "" for x in tables[tbl].__table__.columns}
     return required_fields
 
 
 def Insert_table(tbl, data):
+    """ Function that simulates the SQL INSERT statement
+        Accepts the table name and the data as a list of dictionaries that are added to the database
+         
+        Here, the  """
     try:
         with engine.connect() as conn:
             result = conn.execute(insert(tables[tbl]), data)
@@ -26,6 +37,14 @@ def Insert_table(tbl, data):
 
 
 def Select_table(tbl, condition):
+    """ This function simulates the SQL SELECT statement
+        ACCEPTS the table name and the condition as condition = {"column": ["column_names"], "value": [values]]}
+        RETURNS the selected rows as a list
+        
+        Here we use the getattr() to get the attributes of the table.
+        The filter condition is applied on the columns with AND operator
+        Note : this simulates only the statement "select () from table_name where condition1 and condition2 ..." """
+    
     filter_conditions = [
         getattr(tables[tbl], k) == v
         for k, v in zip(condition["column"], condition["value"])
