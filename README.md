@@ -4,12 +4,12 @@ Matcch is a __USER RECOMMENDATION__ system that works on the __PERSONALITY__ of 
 It is totally based on the Big5 personality traits of the user.
 In this we evaluate the user for their traits.
 
-They are:
-&nbsp;&nbsp;&nbsp;&nbsp;1 : O - Openness.
-&nbsp;&nbsp;&nbsp;&nbsp;2 : C - Conscientiousness.
-&nbsp;&nbsp;&nbsp;&nbsp;3 : E - Extraversion.
-&nbsp;&nbsp;&nbsp;&nbsp;4 : A - Agreeableness.
-&nbsp;&nbsp;&nbsp;&nbsp;5 : N - Neuroticism.
+They are:  
+&nbsp;&nbsp;&nbsp;&nbsp;1 : O - Openness.  
+&nbsp;&nbsp;&nbsp;&nbsp;2 : C - Conscientiousness.  
+&nbsp;&nbsp;&nbsp;&nbsp;3 : E - Extraversion.  
+&nbsp;&nbsp;&nbsp;&nbsp;4 : A - Agreeableness.  
+&nbsp;&nbsp;&nbsp;&nbsp;5 : N - Neuroticism.  
 also known as OCEAN traits.
 
 ### STEPS
@@ -17,6 +17,8 @@ also known as OCEAN traits.
 1. The user takes a __personality test__ which gives the personality score of the user.
 2. Based on the score, user is categorised into one of the __four clusters__.
 3. There after we use the Euclidean distance to find the nearest user personalities in the cluster.
+ 
+   <img width="547"  src="https://github.com/sumukh03/matcch/assets/126386392/71764fb7-d7f8-44bd-a80d-909290f54853">
 
 ## Datasets
 
@@ -32,6 +34,7 @@ Clone the project
 ```
 
 Go to the project directory
+
 
 ```bash
   cd matcch
@@ -54,9 +57,9 @@ http://localhost:3000/
 
 #### Introduction
 
-+ According to the compatibility data mentioned , similar users are more compatable with eachother.
++ According to the compatibility data mentioned , similar users are more compatible with eachother.
 
-  `<img width="985" alt="Screenshot 2024-04-15 at 2 17 57 AM" src="https://github.com/sumukh03/matcch/assets/126386392/949d31fa-4615-409c-9cbd-8be6cccbe61f">`
+  <img width="985" src="https://github.com/sumukh03/matcch/assets/126386392/949d31fa-4615-409c-9cbd-8be6cccbe61f">
 + Hence, to find the compatible users , we first find the cluster that the user belongs to.
 + Then , inside the cluster , we find the similar vectors using the distance between them.
 + This distance determines the closest vectors.
@@ -67,7 +70,8 @@ http://localhost:3000/
 + The raw data from the dataset is filtered to form the score vector of order [ O , C , E , A , N ].
 + These vectors are then fitted to the Kmeans model consisting four clusters.
 + The optimum number of centroids are calculated using Elbow method with WCSS (with-in-cluster sum of squares) parameter.
-  `<img width="413" alt="Screenshot 2024-04-15 at 2 20 28 AM" src="https://github.com/sumukh03/matcch/assets/126386392/9a7e7b29-b3f3-4bf4-aeb2-527f1b1c3c35">`
+  
+  <img width="413"  src="https://github.com/sumukh03/matcch/assets/126386392/9a7e7b29-b3f3-4bf4-aeb2-527f1b1c3c35">
 
 #### Categorising the new vector
 
@@ -79,4 +83,13 @@ http://localhost:3000/
 + Now that we have the similar vectors to the given user vector
 + We assign the Compatibility points to each of the similar vectors with respect to the new user vector from the compatibility data.
 
-  `<img width="842" alt="Screenshot 2024-04-15 at 2 21 38 AM" src="https://github.com/sumukh03/matcch/assets/126386392/b996965a-633b-4abc-bcb1-f052eb4fa73c">`
+### Sample output 
+Here is a quick look of the result.  
+For the given user score vector , the user with user_id 505 is the most compatible user with the corresponding compatible points.  
+
+  <img width="842" src="https://github.com/sumukh03/matcch/assets/126386392/b996965a-633b-4abc-bcb1-f052eb4fa73c">
+
+
+## Example Use Cases 
+1. Dating or matrimonial systems that can recommend a set of users from the database to a particular user.
+2. For content based filtering systems , similar compatible users can be recommended simialar content.
