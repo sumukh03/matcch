@@ -9,8 +9,10 @@ from sqlalchemy import create_engine, insert, select, and_, delete, or_, MetaDat
 from sqlalchemy.orm import sessionmaker
 import os
 
+#Engine is used to connect to the database
 engine = create_engine("sqlite:///instance/database.db", echo=True, pool_pre_ping=True)
 
+#mapping of table names to the Models of the database
 tables = {"users": users, "user_score": user_score}
 
 
@@ -62,6 +64,11 @@ def Select_table(tbl, condition):
 
 
 def Delete_table(tbl, condition):
+    """ This function simulates the SQL DELETE statement.
+        It ACCEPTS the table name and the condition 
+        After successful deletion it RETURNS True 
+        else it RETURNS false  """
+    
     filter_conditions = [
         getattr(tables[tbl], k) == v
         for k, v in zip(condition["column"], condition["value"])
@@ -75,7 +82,8 @@ def Delete_table(tbl, condition):
 
 
 def Insert_df(data):
-    print("Insert_df")
+    """ This function is used to populate the database initially , 
+        It accepts the dataframe and inserts the data into the user_score table using the default to_sql()"""
     data.reset_index(inplace=True)
     data.rename(columns={"index": "user_id"}, inplace=True)
     data.user_id += 1

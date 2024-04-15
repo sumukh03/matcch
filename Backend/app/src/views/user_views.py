@@ -1,3 +1,6 @@
+""" This file contains the user views 
+    It contains functions to create users, get the recommendation based on the user_id"""
+
 from flask import request, Blueprint
 from src.extension import db
 from src.helpers import *

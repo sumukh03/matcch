@@ -1,3 +1,7 @@
+""" These are the processing views mainly used for processing of the user data.
+    It takes the test score of the users , stores it in the database and returns the recommendations"""
+
+
 from flask import request, Blueprint
 from src.extension import db
 from src.helpers import *
