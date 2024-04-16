@@ -88,6 +88,9 @@ http://localhost:3000/
 + When the new user takes the test , the score is store on the database.
 + When the new user's count reaches a threshold , we can use that data and retrain our model.
 
+### Documentation
+Kindly find the additional documentation about how to use the application and the API's in __matcch/Docs__ folder
+
 ### Sample output 
 Here is a quick look of the result.  
 For the given user score vector , the user with user_id 505 is the most compatible user with the corresponding compatible points.  
