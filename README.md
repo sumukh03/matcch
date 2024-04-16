@@ -97,7 +97,7 @@ matcch/Docs
 ```
 ### Sample output 
 Here is a quick look of the result.  
-For the given user score vector , the user with user_id 505 is the most compatible user with the corresponding compatiblity points.  
+For the given user score vector , the user with user_id 505 is the most compatible user with the corresponding compatibility points.  
 
   <img width="842" src="https://github.com/sumukh03/matcch/assets/126386392/b996965a-633b-4abc-bcb1-f052eb4fa73c">
 
