@@ -66,13 +66,16 @@ def dict_to_order_vec(data):
 
 def get_user_score(user_id):
     """This function is used to get the user_score vector by taking the user_id as the input"""
-    condition = {"column": ["user_id"], "value": [user_id]}
+    try:
+        condition = {"column": ["user_id"], "value": [user_id]}
 
-    user_score = Select_table("user_score", condition)[0]#get the user_score from the database
+        user_score = Select_table("user_score", condition)[0]#get the user_score from the database
 
-    user_score = dict_to_order_vec(user_score) #convert the score to ordered vector
+        user_score = dict_to_order_vec(user_score) #convert the score to ordered vector
 
-    return user_score
+        return user_score
+    except Exception as e:
+        return False
 
 
 def find_compatible_vectors(user_id):
@@ -219,12 +222,13 @@ def get_user_recommendations(data):
     """This function ACCEPTS the user_id
     RETURNS the compatible users"""
     user_id = data.get("user_id", None)
-    if user_id:
+    user_data = get_user_score(user_id)
+    if user_id and user_data:
         compatable_users = find_compatible_vectors(user_id) #find the neighbour and similar users 
         final_compatable = make_recommendations_data(user_id, compatable_users) #for the the users , add the compatibility points data
 
         return make_response(final_compatable, True, f"compatibility recommendations ")
-    return make_response(None, False, "Please enter user_id")
+    return make_response(None, False, "User test data not for the given user_id")
 
 
 def calc_from_rawData(answers):

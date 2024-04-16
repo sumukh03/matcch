@@ -9,7 +9,8 @@ from sqlalchemy import create_engine, insert, select, and_, delete, or_, MetaDat
 from sqlalchemy.orm import sessionmaker
 import os
 
-#Engine is used to connect to the database
+#Engine is used to connect to the database .
+#Here I used sqlite database 
 engine = create_engine("sqlite:///instance/database.db", echo=True, pool_pre_ping=True)
 
 #mapping of table names to the Models of the database
@@ -27,8 +28,7 @@ def get_fields_table(tbl):
 def Insert_table(tbl, data):
     """ Function that simulates the SQL INSERT statement
         Accepts the table name and the data as a list of dictionaries that are added to the database
-         
-        Here, the  """
+         """
     try:
         with engine.connect() as conn:
             result = conn.execute(insert(tables[tbl]), data)
