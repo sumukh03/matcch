@@ -89,7 +89,7 @@ http://localhost:3000/
 + When the new user's count reaches a threshold , we can use that data and retrain our model.
 
 ### Documentation
-Kindly find the additional documentation about how to use the application and the API's in the folder
+Kindly find the manual about how to use the application and the API's in the folder
 ```bash
 matcch/Docs 
 ```
