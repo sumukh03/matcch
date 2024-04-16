@@ -46,12 +46,13 @@ Install the Docker and DockerCompose and run
 docker compose up --build
 ```
 
-After the server starts
-On the browser , Open
+After the server starts,
+go to 
 
 ```bash
 http://localhost:3000/
 ```
+on your browser 
 
 ## Technical Details
 
