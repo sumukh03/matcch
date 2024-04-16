@@ -16,7 +16,7 @@ also known as OCEAN traits.
 
 1. The user takes a __personality test__ which gives the personality score of the user.
 2. Based on the score, user is categorised into one of the __four clusters__.
-3. There after we use the Euclidean distance to find the nearest user personalities in the cluster.
+3. There after we use the Euclidean distance to find the similar nearest user personalities in the cluster.
  
    <img width="547"  src="https://github.com/sumukh03/matcch/assets/126386392/71764fb7-d7f8-44bd-a80d-909290f54853">
 
@@ -58,11 +58,12 @@ on your browser
 
 #### Introduction
 
-+ According to the compatibility data mentioned , similar users are more compatible with eachother.
++ According to the compatibility data mentioned , users with similar personality are more compatible with eachother as shown in the below figure for openness trait.
 
   <img width="985" src="https://github.com/sumukh03/matcch/assets/126386392/949d31fa-4615-409c-9cbd-8be6cccbe61f">
-+ Hence, to find the compatible users , we first find the cluster that the user belongs to.
-+ Then , inside the cluster , we find the similar vectors using the distance between them.
++ Similar to the above table, for every trait in OCEAN traits we have a compatibility table.
++ Hence , to find the compatible users , we first find the cluster that the user belongs to.
++ Then , inside the cluster , we find similar vectors using the distance between them.
 + This distance determines the closest vectors.
 + To the closest vectors , we find the compatibility points.
 
@@ -86,8 +87,8 @@ on your browser
 
 #### Database
 + The database is initialised with the training data of 5000 users for simplicity.
-+ When the new user takes the test , the score is store on the database.
-+ When the new user's count reaches a threshold , we can use that data and retrain our model.
++ When a new user takes the test , the score is stored on the database.
++ When the new user's count reaches a threshold , we can use that data and re-train our model.
 
 ### Documentation
 Kindly find the manual about how to use the application and the API's in the folder
@@ -96,11 +97,11 @@ matcch/Docs
 ```
 ### Sample output 
 Here is a quick look of the result.  
-For the given user score vector , the user with user_id 505 is the most compatible user with the corresponding compatible points.  
+For the given user score vector , the user with user_id 505 is the most compatible user with the corresponding compatiblity points.  
 
   <img width="842" src="https://github.com/sumukh03/matcch/assets/126386392/b996965a-633b-4abc-bcb1-f052eb4fa73c">
 
 
 ## Example Use Cases 
 1. Dating or matrimonial systems that can recommend a set of users from the database to a particular user.
-2. For content based filtering systems , similar compatible users can be recommended simialar content.
+2. For content based filtering systems , similar content can be recommended to users with similar personality.
